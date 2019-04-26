@@ -58,21 +58,25 @@ const newDevelopment = [
     }
 ];
 
-
 var roomsInfo =  _.map(newDevelopment, person =>{
     return person.rooms;
 })
 
 var rooms = _.flatten(roomsInfo);
-var notSuspectRooms=[];
-var suspectRooms=[];
-for(let room of rooms ){
-    for(let key in room){
-        if(room[key])
+
+var getSuspectRooms = function(){
+    var notSuspectRooms=[];
+    var suspectRooms=[];
+    for(let room of rooms ){
+        for(let key in room){
+            if(room[key])
             notSuspectRooms.push(key);
-        else
+            else
             suspectRooms.push(key);
+        }
     }
+    return (_.uniq(_.difference(suspectRooms,notSuspectRooms)));
 }
 
-console.log(_.uniq(_.difference(suspectRooms,notSuspectRooms)));
+
+console.log(getSuspectRooms());
